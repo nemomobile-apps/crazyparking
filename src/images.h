@@ -23,8 +23,9 @@
 #ifndef _IMAGES_H_
 #define _IMAGES_H_
 
-#include <SDL/SDL.h>
-#include <SDL/SDL_mixer.h>
+#include <SDL.h>
+#include <SDL_mixer.h>
+#include "sdl12compat.h"
 
 #ifndef MAZEPREFIX
 #define MAZEPREFIX	"maze"

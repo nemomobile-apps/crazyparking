@@ -20,23 +20,23 @@
 * 02110-1301 USA
 *
 */
-#include <gtk/gtk.h>
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
+//#include <gtk/gtk.h>
+//#include <gconf/gconf.h>
+//#include <gconf/gconf-client.h>
 
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
-#include <hgw/hgw.h>
+//#include <hgw/hgw.h>
 #include <unistd.h>
 #include "images.h"
 #include "level.h"
 #include "callbacks.h"
 
-#define SETTINGS_LEVEL "/apps/osso/crazyparking/level"
-#define SETTINGS_SOUND "/apps/osso/crazyparking/sound"
+//#define SETTINGS_LEVEL "/apps/osso/crazyparking/level"
+//#define SETTINGS_SOUND "/apps/osso/crazyparking/sound"
 
-HgwContext *hgw_context = NULL;
+//HgwContext *hgw_context = NULL;
 
 
 // Main function
@@ -49,10 +49,10 @@ int crazy_main() {
 	Uint32 timeout = 10000;
 	
 
-    GConfClient *gc_client = NULL;
-    g_type_init();
-    gc_client = gconf_client_get_default();
-    level = gconf_client_get_int(gc_client, SETTINGS_LEVEL, NULL);
+    //GConfClient *gc_client = NULL;
+    //g_type_init();
+    //gc_client = gconf_client_get_default();
+    //level = gconf_client_get_int(gc_client, SETTINGS_LEVEL, NULL);
     //enable_sound = gconf_client_get_int(gc_client, SETTINGS_SOUND, NULL);
     enable_sound = 0;
 
@@ -127,7 +127,7 @@ int crazy_main() {
 				done = 1;
 				exit_callback(0);
 				break;
-
+#if 0
 			// Window focus change
 			case SDL_ACTIVEEVENT:
 				if (event.active.gain == 0) {
@@ -135,14 +135,23 @@ int crazy_main() {
 					exit_callback(0);
 				}
 				break;
+#endif
 
 			// Button released
 			case SDL_MOUSEBUTTONUP:
+                        case SDL_FINGERUP:
 				b_up = 1;
 				break;
 
 			// Button pressed
 			case SDL_MOUSEBUTTONDOWN:
+                        case SDL_FINGERDOWN:
+
+                                if (event.type == SDL_FINGERDOWN) {
+                                    event.button.x = event.tfinger.x;
+                                    event.button.y = event.tfinger.y;
+                                }
+
 				has_focus = 1;
 				if (!b_up) break;
 				else b_up = 0;
@@ -267,7 +276,7 @@ int crazy_main() {
 		DrawScreen();
     		//hgw_msg_compat_receive(hgw_context, 0);
 
-#if HGW_FUNC
+#if 0
 		HgwMessage hgw_message;
 		if ( !hgw_msg_check_incoming(hgw_context, &hgw_message, HGW_MSG_FLAG_INVOKE_CB) ) {
 			if (hgw_message.type == HGW_MSG_TYPE_DEVSTATE && (hgw_message.e_val & HGW_DEVICE_STATE_DISPLAYOFF)) {
@@ -297,7 +306,7 @@ int crazy_main() {
 		Mix_CloseAudio();
 	}
 
-    gconf_client_set_int(gc_client, SETTINGS_LEVEL, actual_level, NULL);
+    //gconf_client_set_int(gc_client, SETTINGS_LEVEL, actual_level, NULL);
 	FreeSurfaces();
 	SDL_Quit();
 	return 0;
@@ -307,7 +316,7 @@ int crazy_main() {
 // Initialize libshadow
 int main(int argc, char **argv) {
 
-#if HGW_FUNC
+#if 0
 	hgw_context = hgw_context_compat_init(argc, argv);
 	if (!hgw_context) {
 		fprintf(stderr, "Cannot init hildon-games-startup!\n");
@@ -325,7 +334,7 @@ int main(int argc, char **argv) {
 	// Main game
 	crazy_main();
 
-#if HGW_FUNC
+#if 0
 	hgw_context_compat_destroy_deinit(hgw_context);
 #endif
 

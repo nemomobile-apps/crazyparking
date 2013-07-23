@@ -20,7 +20,7 @@
 * 02110-1301 USA
 *
 */ 
-extern HgwContext *hgw_context;
+//extern HgwContext *hgw_context;
 
 int exit_callback(int errcode/*, AppData *app_data*/);
 int quit_callback(int errcode/*, AppData *app_data*/);

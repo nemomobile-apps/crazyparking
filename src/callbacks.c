@@ -20,8 +20,9 @@
 * 02110-1301 USA
 *
 */
+
 #include <stdio.h>
-#include <hgw/hgw.h>
+//#include <hgw/hgw.h>
 #include "callbacks.h"
 #include "images.h"
 #include "level.h"
@@ -46,7 +47,7 @@ int exit_callback(int errcode) {
 int quit_callback(int errcode) {
 	remove("/tmp/.crazyparking-save");
 
-	hgw_context_compat_destroy_quit(hgw_context);
+	//hgw_context_compat_destroy_quit(hgw_context);
 	return 0;
 }
 

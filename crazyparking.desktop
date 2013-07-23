@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=CrazyParking
+Exec=/opt/crazyparking/crazyparking
+Icon=/opt/crazyparking/pixmaps/qgn_list_crazyparking.png
